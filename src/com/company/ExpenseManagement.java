@@ -4,11 +4,8 @@ import com.company.model.Category;
 import com.company.model.Expense;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -28,10 +25,10 @@ public class ExpenseManagement extends CategoryManagement{
     }
 
     public Expense addExpense(String categoryName,String name, double amount){
-        Category category = findCategoryByName(categoryName);
-        if (category != null){
+        Optional<Category> category = findCategoryByName(categoryName);
+        if (category.isPresent()){
             Expense expense = new Expense(UUID.randomUUID(),name,amount, LocalDateTime.now());
-            category.getExpenses().add(expense);
+            category.get().getExpenses().add(expense);
             return expense;
         }
         return null;
@@ -42,11 +39,11 @@ public class ExpenseManagement extends CategoryManagement{
     }
 
     public boolean deleteExpense(String categoryName,UUID expenseId){
-        Category category = findCategoryByName(categoryName);
-        if (category != null){
-            Expense expense = findExpenseById(category.getExpenses(),expenseId);
+        Optional<Category> category = findCategoryByName(categoryName);
+        if (category.isPresent()){
+            Expense expense = findExpenseById(category.get().getExpenses(),expenseId);
             if (expense != null){
-                category.getExpenses().remove(expense);
+                category.get().getExpenses().remove(expense);
             }
             return true;
         }
@@ -79,9 +76,9 @@ public class ExpenseManagement extends CategoryManagement{
     }
 
     public Expense updateExpenseByCategory(String categoryName,UUID expenseId,String name,double amount){
-        Category category = findCategoryByName(categoryName);
-        if (category != null){
-            Expense expense = findExpenseById(category.getExpenses(),expenseId);
+        Optional<Category> category = findCategoryByName(categoryName);
+        if (category.isPresent()){
+            Expense expense = findExpenseById(category.get().getExpenses(),expenseId);
             if (expense != null){
                 expense.setAmount(amount);
                 expense.setName(name);
