@@ -107,4 +107,18 @@ public class ExpenseManagement extends CategoryManagement{
         System.out.println("Total Amount Spent Today - " + LocalDate.now() + " is : " + totalAmount);
     }
 
+    public void listAllExpenses(){
+        List<Expense> expenses = new ArrayList<>();
+        categories.forEach(category -> expenses.addAll(category.getExpenses()));
+        printExpenses(expenses);
+    }
+
+
+    public Category deleteExpensesOfCategory(String categoryName){
+        Optional<Category> categoryOptional = findCategoryByName(categoryName);
+        categoryOptional.ifPresent(category -> category.getExpenses().clear());
+        return categoryOptional.orElse(null);
+    }
+
+
 }

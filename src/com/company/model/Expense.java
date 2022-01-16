@@ -6,6 +6,7 @@ import java.util.UUID;
 /**
  * created by chethan on 15-01-2022
  **/
+
 public class Expense {
     private UUID id;
     private String name;
@@ -13,7 +14,7 @@ public class Expense {
     private LocalDateTime createdAt;
     private Category category;
 
-    public Expense(UUID id, String name, double amount,LocalDateTime createdAt,Category category) {
+    public Expense(UUID id, String name, double amount, LocalDateTime createdAt, Category category) {
         this.id = id;
         this.name = name;
         this.amount = amount;
@@ -63,12 +64,6 @@ public class Expense {
 
     @Override
     public String toString() {
-        return "Expense{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", amount=" + amount +
-                ", createdAt=" + createdAt +
-                ", category=" + category.getName() +
-                '}';
+        return "Expense{" + "id=" + id + ", name='" + name + '\'' + ", amount=" + amount + ", createdAt=" + createdAt + ", category=" + category.getName() + '}';
     }
 }

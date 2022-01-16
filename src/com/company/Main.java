@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.model.Category;
 import com.company.model.Expense;
 
 import java.util.Scanner;
@@ -111,6 +112,13 @@ public class Main {
                         System.out.println("Expense " + expense1 + " has been updated");
                     }
                     case 9 -> expenseManagement.listExpensesOfTheDay();
+                    case 10 -> {
+                        System.out.println("Enter category name to delete expenses: ");
+                        String deleteCategoryName = scanner.next();
+                        Category category = expenseManagement.deleteExpensesOfCategory(deleteCategoryName);
+                        System.out.println("Expenses of categorry " + category.getName() + " has been deleted");
+                    }
+                    case 11 -> expenseManagement.listAllExpenses();
                     default -> {
                         System.out.println("Thank you for using expense tracker OOPS Application");
                         stop = true;
@@ -135,7 +143,9 @@ public class Main {
                 "7) delete expenses of category [+]\n" +
                 "8) update expense by category id and expense id [+]\n" +
                 "9) list expenses of the day [+]");
-        System.out.println("10) exit [+]");
+        System.out.println("10) delete all expenses of a category [+]");
+        System.out.println("11) list all expenses till now [+]");
+        System.out.println("12) exit [+]");
     }
 
 }
