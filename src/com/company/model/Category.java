@@ -71,6 +71,7 @@ public class Category {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", createdAt=" + createdAt +
+                ", expenses=" + expenses +
                 '}';
     }
 }

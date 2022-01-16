@@ -3,17 +3,14 @@ package com.company;
 import com.company.model.Category;
 import com.company.model.Expense;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 
 /**
  * created by chethan on 15-01-2022
  **/
 public class ExpenseManagement extends CategoryManagement{
-
 
     public Expense addExpense(UUID categoryId,String name, double amount){
         Category category = findCategoryById(categoryId);
@@ -43,9 +40,8 @@ public class ExpenseManagement extends CategoryManagement{
         Optional<Category> category = findCategoryByName(categoryName);
         if (category.isPresent()){
             Expense expense = findExpenseById(category.get().getExpenses(),expenseId);
-            if (expense != null){
+            if (expense != null)
                 category.get().getExpenses().remove(expense);
-            }
             return true;
         }
         return false;
@@ -55,9 +51,8 @@ public class ExpenseManagement extends CategoryManagement{
         Category category = findCategoryById(categoryId);
         if (category != null){
             Expense expense = findExpenseById(category.getExpenses(),expenseId);
-            if (expense != null){
+            if (expense != null)
                 category.getExpenses().remove(expense);
-            }
             return true;
         }
         return false;
@@ -100,9 +95,9 @@ public class ExpenseManagement extends CategoryManagement{
         double totalAmount = 0.0;
         for (Category category : categories) {
             for (Expense expense : category.getExpenses()) {
-                Date today = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
-                Date expenseDate = Date.from(expense.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant());
-                if (new SimpleDateFormat("yyyyMMdd").format(expenseDate).equals(new SimpleDateFormat("yyyyMMdd").format(today))){
+                LocalDate today = LocalDate.now();
+                LocalDate expenseCreatedDay = expense.getCreatedAt().toLocalDate();
+                if (expenseCreatedDay.toString().equals(today.toString())){
                     expenses.add(expense);
                     totalAmount += expense.getAmount();
                 }

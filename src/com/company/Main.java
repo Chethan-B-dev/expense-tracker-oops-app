@@ -11,6 +11,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         try {
             boolean stop = false;
             while (!stop) {
@@ -118,6 +119,8 @@ public class Main {
             }
         } catch (Exception err) {
             err.printStackTrace();
+        } finally {
+            scanner.close();
         }
 
     }
@@ -131,8 +134,8 @@ public class Main {
                 "6) add expense to category [+]\n" +
                 "7) delete expenses of category [+]\n" +
                 "8) update expense by category id and expense id [+]\n" +
-                "9) list expenses of the day [-]");
-        System.out.println("10) exit");
+                "9) list expenses of the day [+]");
+        System.out.println("10) exit [+]");
     }
 
 }
