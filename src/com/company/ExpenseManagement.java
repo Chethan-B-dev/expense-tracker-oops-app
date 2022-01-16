@@ -4,6 +4,7 @@ import com.company.model.Category;
 import com.company.model.Expense;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -17,7 +18,7 @@ public class ExpenseManagement extends CategoryManagement{
     public Expense addExpense(UUID categoryId,String name, double amount){
         Category category = findCategoryById(categoryId);
         if (category != null){
-            Expense expense = new Expense(UUID.randomUUID(),name,amount, LocalDateTime.now());
+            Expense expense = new Expense(UUID.randomUUID(),name,amount, LocalDateTime.now(),category);
             category.getExpenses().add(expense);
             return expense;
         }
@@ -27,7 +28,7 @@ public class ExpenseManagement extends CategoryManagement{
     public Expense addExpense(String categoryName,String name, double amount){
         Optional<Category> category = findCategoryByName(categoryName);
         if (category.isPresent()){
-            Expense expense = new Expense(UUID.randomUUID(),name,amount, LocalDateTime.now());
+            Expense expense = new Expense(UUID.randomUUID(),name,amount, LocalDateTime.now(),category.get());
             category.get().getExpenses().add(expense);
             return expense;
         }
@@ -89,22 +90,26 @@ public class ExpenseManagement extends CategoryManagement{
     }
 
     private void printExpenses(List<Expense> expenses){
+        System.out.println("-----------------");
         expenses.forEach(System.out::println);
+        System.out.println("-----------------");
     }
 
-    public List<Expense> listExpensesOfTheDay(){
+    public void listExpensesOfTheDay(){
         List<Expense> expenses = new ArrayList<>();
+        double totalAmount = 0.0;
         for (Category category : categories) {
             for (Expense expense : category.getExpenses()) {
                 Date today = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
                 Date expenseDate = Date.from(expense.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant());
                 if (new SimpleDateFormat("yyyyMMdd").format(expenseDate).equals(new SimpleDateFormat("yyyyMMdd").format(today))){
                     expenses.add(expense);
+                    totalAmount += expense.getAmount();
                 }
             }
         }
         printExpenses(expenses);
-        return expenses;
+        System.out.println("Total Amount Spent Today - " + LocalDate.now() + " is : " + totalAmount);
     }
 
 }

@@ -74,7 +74,7 @@ public class Main {
                         String deleteCategoryName = scanner.next();
                         System.out.println("Enter expense id to delete: ");
                         String expenseId = scanner.next();
-                        UUID uuid = null;
+                        UUID uuid;
                         try {
                             uuid = UUID.fromString(expenseId);
                         } catch (IllegalArgumentException err) {
@@ -93,7 +93,7 @@ public class Main {
                         String updateCategoryName = scanner.next();
                         System.out.println("Enter expense id to update: ");
                         String expenseIdToUpdate = scanner.next();
-                        UUID expenseIdUUid = null;
+                        UUID expenseIdUUid;
                         try {
                             expenseIdUUid = UUID.fromString(expenseIdToUpdate);
                         } catch (IllegalArgumentException err) {

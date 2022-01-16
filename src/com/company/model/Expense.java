@@ -11,12 +11,22 @@ public class Expense {
     private String name;
     private double amount;
     private LocalDateTime createdAt;
+    private Category category;
 
-    public Expense(UUID id, String name, double amount,LocalDateTime createdAt) {
+    public Expense(UUID id, String name, double amount,LocalDateTime createdAt,Category category) {
         this.id = id;
         this.name = name;
         this.amount = amount;
         this.createdAt = createdAt;
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -57,6 +67,8 @@ public class Expense {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", amount=" + amount +
+                ", createdAt=" + createdAt +
+                ", category=" + category.getName() +
                 '}';
     }
 }

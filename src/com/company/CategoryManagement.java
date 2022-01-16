@@ -16,10 +16,9 @@ public class CategoryManagement {
         this.categories = new ArrayList<>();
     }
 
-    public Category addCategory(String name,String description){
+    public void addCategory(String name, String description){
         Category category = new Category(UUID.randomUUID(), name, description, LocalDateTime.now());
         categories.add(category);
-        return category;
     }
 
     public boolean deleteCategory(String name){
